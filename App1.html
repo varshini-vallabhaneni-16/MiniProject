@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRODUCTO</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+    }
+    header {
+      background-color: #444;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+    header .logo {
+      font-weight: bold;
+    }
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+    }
+    h1 {
+      padding: 20px;
+      margin: 0;
+    }
+    form {
+      background-color: #fff;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    label {
+      margin-right: 10px;
+    }
+    input {
+      margin-right: 20px;
+      padding: 5px;
+    }
+    button {
+      padding: 6px 12px;
+      margin-top: 10px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 90%;
+      margin: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #f0f0f0;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <header>
+   
+<img class="logo" src="data:image/png;base64,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" alt="Logo" />
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Products</a>
+      <a href="#">About</a>
+    </nav>
+
+    <div class="site-title">PRODUCTO</div>
+  </header>
+
+  <h1>Product Form</h1>
+  <form id="product-form">
+    <label for="id">Product ID</label>
+    <input type="number" id="id" name="id">
+    <label for="name">Product Name</label>
+    <input type="text" id="name" name="name">
+    <label for="price">Price</label>
+    <input type="number" id="price" name="price">
+    <label for="qty">Quantity</label>
+    <input type="number" id="qty" name="qty">
+    <button type="submit" id="add-btn">Add Product</button>
+    <button type="button" id="update-btn" style="display: none;">Update Product</button>
+    <button type="button" id="Display">Display Products</button>
+  </form>
+
+  <table id="product-table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="product-body"></tbody>
+  </table>
+
+  <footer>
+    © 2025 PRODUCTO Inc.
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
