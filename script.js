@@ -1,77 +1,83 @@
-let products = [];
-let editIndex = null;
-
-
-const form = document.getElementById('product-form');
-const displayBtn = document.getElementById('Display');
-const addBtn = document.getElementById('add-btn');
-const updateBtn = document.getElementById('update-btn');
+const idInput = document.getElementById('id');
+const nameInput = document.getElementById('name');
+const priceInput = document.getElementById('price');
+const qtyInput = document.getElementById('qty');
+const submitBtn = document.getElementById('submit');
 const productBody = document.getElementById('product-body');
 
+let editRow = null;
 
-form.addEventListener('submit', function (e) {
+document.getElementById('product-form').addEventListener('submit', function (e) {
   e.preventDefault();
 
-  const id = document.getElementById('id').value;
-  const name = document.getElementById('name').value;
-  const price = document.getElementById('price').value;
-  const qty = document.getElementById('qty').value;
+  const id = idInput.value.trim();
+  const name = nameInput.value.trim();
+  const price = priceInput.value.trim();
+  const qty = qtyInput.value.trim();
 
-  if (editIndex === null) {
-
-    products.push({ id, name, price, qty });
-  } else {
-    
-    products[editIndex] = { id, name, price, qty };
-    editIndex = null;
-    addBtn.style.display = 'inline';
-    updateBtn.style.display = 'none';
+  if (!id || !name || !price || !qty) {
+    alert("Please fill all fields!");
+    return;
   }
 
-  form.reset();
-  displayProducts();
+  if (editRow) {
+    
+    editRow.cells[0].innerText = id;
+    editRow.cells[1].innerText = name;
+    editRow.cells[2].innerText = price;
+    editRow.cells[3].innerText = qty;
+    submitBtn.value = "Add Product";
+    editRow = null;
+  } else {
+
+    addRow(id, name, price, qty);
+  }
+
+  clearForm();
 });
 
+function addRow(id, name, price, qty) {
+  const row = document.createElement('tr');
 
-function displayProducts() {
-  productBody.innerHTML = '';
+  row.innerHTML = `
+    <td>${id}</td>
+    <td>${name}</td>
+    <td>${price}</td>
+    <td>${qty}</td>
+    <td>
+      <button class="edit-btn">Edit</button>
+      <button class="delete-btn">Delete</button>
+    </td>
+  `;
 
-  products.forEach((product, index) => {
-    const row = document.createElement('tr');
-    row.innerHTML = `
-      <td>${product.id}</td>
-      <td>${product.name}</td>
-      <td>${product.price}</td>
-      <td>${product.qty}</td>
-      <td>
-        <button onclick="editProduct(${index})">Edit</button>
-        <button onclick="deleteProduct(${index})">Delete</button>
-      </td>
-    `;
-    productBody.appendChild(row);
+  // Delete
+  row.querySelector('.delete-btn').addEventListener('click', () => {
+    const confirmDelete = confirm("Are you sure you want to delete this product?");
+    if (confirmDelete) {
+      row.remove();
+      alert("Product deleted successfully.");
+      clearForm();
+    }
   });
+
+  // Edit
+  row.querySelector('.edit-btn').addEventListener('click', () => {
+    idInput.value = row.cells[0].innerText;
+    nameInput.value = row.cells[1].innerText;
+    priceInput.value = row.cells[2].innerText;
+    qtyInput.value = row.cells[3].innerText;
+    submitBtn.value = "Save Changes";
+    editRow = row;
+  });
+
+  productBody.appendChild(row);
 }
 
-
-displayBtn.addEventListener('click', displayProducts);
-
-
-window.editProduct = function (index) {
-  const product = products[index];
-  document.getElementById('id').value = product.id;
-  document.getElementById('name').value = product.name;
-  document.getElementById('price').value = product.price;
-  document.getElementById('qty').value = product.qty;
-
-  editIndex = index;
-  addBtn.style.display = 'none';
-  updateBtn.style.display = 'inline';
-};
-
-
-window.deleteProduct = function (index) {
-  if (confirm("Are you sure you want to delete this product?")) {
-    products.splice(index, 1);
-    displayProducts();
-  }
-};
+function clearForm() {
+  idInput.value = '';
+  nameInput.value = '';
+  priceInput.value = '';
+  qtyInput.value = '';
+  submitBtn.value = "Add Product";
+  editRow = null;
+}
